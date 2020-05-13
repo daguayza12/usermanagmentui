@@ -1,0 +1,17 @@
+{
+  "name": "user-managment",
+  "version": "1.0.0",
+  "description": "User managment app",
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "bcryptjs": "^2.4.3",
+    "config": "^3.3.0",
+    "jsonwebtoken": "^8.5.1"
+  },
+  "devDependencies": {
+    "concurrently": "^5.1.0",
+    "nodemon": "^2.0.2"
+  }
+}

@@ -1,0 +1,9 @@
+export const ADD_USER = 'ADD_USER';
+export const DELETE_USER = 'DELETE_USER';
+export const ADD_USER_TO_GROUP = 'ADD_USER_TO_GROUP';
+export const SET_ALERT = 'SET_ALERT';
+export const REMOVE_ALERT = 'REMOVE_ALERT';
+export const SET_CURRENT = 'SET_CURRENT';
+export const CLEAR_CURRENT = 'CLEAR_CURRENT';
+export const FILTER_USER = 'FILTER_USER';
+export const CLEAR_FILTER = 'CLEAR_FILTER';
