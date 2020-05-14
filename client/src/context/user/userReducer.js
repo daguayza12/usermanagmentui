@@ -1,19 +1,26 @@
 import {
   ADD_USER,
-  SET_ALERT,
   DELETE_USER,
-  UPATE_USER,
   SET_CURRENT,
   CLEAR_CURRENT,
   ADD_USER_TO_GROUP,
   FILTER_USER,
   CLEAR_FILTER,
+  GET_USER,
+  CLEAR_USERS,
+  USER_ERROR,
 } from '../types';
 
 export default (state, action) => {
   switch (action.type) {
     default:
       return state;
+    case GET_USER:
+      return {
+        ...state,
+        users: action.payload,
+        loading: false,
+      };
     case ADD_USER:
       return {
         ...state,
@@ -26,6 +33,15 @@ export default (state, action) => {
           user.userId === action.payload.userId ? action.payload : user
         ),
       };
+    case CLEAR_USERS:
+      return {
+        ...state,
+        users: null,
+        filtered: null,
+        error: null,
+        current: null,
+      };
+
     case DELETE_USER:
       return {
         ...state,
@@ -57,6 +73,11 @@ export default (state, action) => {
       return {
         ...state,
         filtered: null,
+      };
+    case USER_ERROR:
+      return {
+        ...state,
+        error: action.payload,
       };
   }
 };

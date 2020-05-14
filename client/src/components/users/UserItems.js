@@ -1,25 +1,35 @@
 import React, { useContext } from 'react';
 import PropTypes from 'prop-types';
 import UserContext from '../../context/user/userContext';
+import AlertContext from '../../context/alert/alertContext';
+import AuthContext from '../../context/auth/authContext';
+
 export const UserItems = ({ user }) => {
   const userContext = useContext(UserContext);
+  const alertContext = useContext(AlertContext);
+  const authContext = useContext(AuthContext);
   const { deleteUser, setCurrent, clearCurrent } = userContext;
+  const { setAlert } = alertContext;
+  const { userId, firstName, email, lastName, userRole } = user;
+
   const onDelete = () => {
-    deleteUser(userId);
-    clearCurrent();
+    const currentUserId = parseInt(localStorage.userId);
+    console.log(currentUserId);
+    console.log(userId);
+    if (userRole === 'admin') {
+      setAlert('Cannot delete admin user', 'danger');
+    } else if (currentUserId === userId) {
+      setAlert('Cannot delete logged in user', 'danger');
+    } else {
+      console.log(userId);
+      deleteUser(userId);
+      clearCurrent();
+    }
   };
-  const {
-    userId,
-    firstName,
-    lastName,
-    email,
-    userRole,
-    groupId,
-    groupName,
-  } = user;
+
   return (
     <div className='card bg-light'>
-      <h3 clasName='text-primary text-left'>
+      <h3 className='text-primary text-left'>
         {firstName} {''} {lastName}
         <span
           style={{ float: 'right' }}

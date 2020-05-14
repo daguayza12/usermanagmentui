@@ -2,6 +2,12 @@
   "name": "user-managment",
   "version": "1.0.0",
   "description": "User managment app",
+  "scripts": {
+    "client": "npm start --prefix client",
+    "clientinstall": "npm install --prefix client",
+    "dev": "concurrently  \"npm run client\"",
+    "heroku-postbuild": "npm install --prefix client && npm run build --prefix client"
+  },
   "keywords": [],
   "author": "",
   "license": "ISC",

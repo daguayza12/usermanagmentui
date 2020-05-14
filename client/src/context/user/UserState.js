@@ -1,73 +1,119 @@
 import React, { useReducer } from 'react';
+import axios from 'axios';
 import UserContext from './userContext';
 import UserReducer from './userReducer';
 import {
+  GET_USER,
   ADD_USER,
+  DELETE_USER,
   SET_CURRENT,
   CLEAR_CURRENT,
-  DELETE_USER,
   ADD_USER_TO_GROUP,
   FILTER_USER,
+  CLEAR_USERS,
   CLEAR_FILTER,
+  USER_ERROR,
+  SET_ALERT,
 } from '../types';
-import userContext from './userContext';
 
 const UserState = (props) => {
-  const intialState = {
-    users: [
-      {
-        userId: 1,
-        firstName: 'Diana',
-        lastName: 'Aguayza',
-        email: 'daguayza@gmail.com',
-        userRole: 'admin',
-        groupName: 'group 2',
-        groupId: 2,
-      },
-      {
-        userId: 2,
-        firstName: 'aRYA',
-        lastName: 'Aguayza',
-        email: 'arya@gmail.com',
-        userRole: 'user',
-        groupName: null,
-        groupId: 0,
-      },
-    ],
+  const initialState = {
+    users: null,
     current: null,
     filtered: null,
-  };
-  const [state, dispatch] = useReducer(UserReducer, intialState);
-  //Add User
-  const addUser = (user) => {
-    user.userId = 23;
-    dispatch({ type: ADD_USER, payload: user });
-  };
-  //Delete User
-  const deleteUser = (userId) => {
-    dispatch({ type: DELETE_USER, payload: userId });
+    error: null,
   };
 
-  //Update User
-  const addUserToGroup = (user) => {
-    dispatch({ type: ADD_USER_TO_GROUP, payload: user });
+  const [state, dispatch] = useReducer(UserReducer, initialState);
+
+  // Get Users
+  const getUsers = async () => {
+    try {
+      const res = await axios.get('/api/users');
+
+      dispatch({
+        type: GET_USER,
+        payload: res.data,
+      });
+    } catch (err) {
+      dispatch({
+        type: USER_ERROR,
+        payload: err.response.message,
+      });
+    }
   };
-  //Set Current User
+
+  // Add USER
+  const addUser = async (user) => {
+    try {
+      const res = await axios.post('/api/users', user);
+
+      dispatch({
+        type: ADD_USER,
+        payload: res.data,
+      });
+    } catch (err) {
+      dispatch({
+        type: USER_ERROR,
+        payload: err.response.message,
+      });
+    }
+  };
+
+  // Delete User
+  const deleteUser = async (userId) => {
+    try {
+      await axios.delete(`/api/users/${userId}`);
+
+      dispatch({
+        type: DELETE_USER,
+        payload: userId,
+      });
+    } catch (err) {
+      dispatch({
+        type: USER_ERROR,
+        payload: err.response.message,
+      });
+    }
+  };
+
+  // Update group
+  const addUserToGroup = async (user) => {
+    try {
+      const res = await axios.put(`/api/users/${user.userId}`, user);
+      dispatch({
+        type: ADD_USER_TO_GROUP,
+        payload: res.data,
+      });
+    } catch (err) {
+      dispatch({
+        type: USER_ERROR,
+        payload: err.response.message,
+      });
+    }
+  };
+
+  // Clear Users
+  const clearUsers = () => {
+    dispatch({ type: CLEAR_USERS });
+  };
+
+  // Set Current User
   const setCurrent = (user) => {
     dispatch({ type: SET_CURRENT, payload: user });
   };
 
-  //Clear Current User
-  const clearCurrent = (user) => {
+  // Clear Current User
+  const clearCurrent = () => {
     dispatch({ type: CLEAR_CURRENT });
   };
 
-  // Filter User
+  // Filter Users
   const filterUsers = (text) => {
     dispatch({ type: FILTER_USER, payload: text });
   };
 
-  //Clear Filter
+  // Clear Filter
   const clearFilter = () => {
     dispatch({ type: CLEAR_FILTER });
   };
@@ -78,6 +124,7 @@ const UserState = (props) => {
         users: state.users,
         current: state.current,
         filtered: state.filtered,
+        error: state.error,
         addUser,
         deleteUser,
         setCurrent,
@@ -85,6 +132,8 @@ const UserState = (props) => {
         addUserToGroup,
         filterUsers,
         clearFilter,
+        getUsers,
+        clearUsers,
       }}
     >
       {props.children}

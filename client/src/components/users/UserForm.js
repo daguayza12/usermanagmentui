@@ -1,15 +1,29 @@
 import React, { useState, useContext, useEffect } from 'react';
-import UserState from '../../context/user/UserState';
 import UserContext from '../../context/user/userContext';
+import AlertContext from '../../context/alert/alertContext';
+
 const UserForm = () => {
   const userContext = useContext(UserContext);
-  const { addUser, current, clearCurrent, addUserToGroup } = userContext;
+  const alertContext = useContext(AlertContext);
+  const {
+    addUser,
+    current,
+    clearCurrent,
+    addUserToGroup,
+    clearUsers,
+    error,
+  } = userContext;
+  const { setAlert } = alertContext;
+
   const clearAll = () => {
     clearCurrent();
   };
   useEffect(() => {
     if (current !== null) {
       setUser(current);
+    } else if (error === 'User email already exists.') {
+      setAlert(error, 'danger');
+      clearUsers();
     } else {
       setUser({
         firstName: '',
