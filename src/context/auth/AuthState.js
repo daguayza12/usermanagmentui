@@ -47,7 +47,11 @@ const AuthState = (props) => {
     };
 
     try {
-      const res = await axios.post('/api/auth', formData, config);
+      const res = await axios.post(
+        'https://usermanagementservice.herokuapp.com/api/ui',
+        formData,
+        config
+      );
       dispatch({
         type: LOGIN_SUCCESS,
         payload: res.data,
