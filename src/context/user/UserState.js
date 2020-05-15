@@ -77,22 +77,6 @@ const UserState = (props) => {
     }
   };
 
-  // Update group
-  const addUserToGroup = async (user) => {
-    try {
-      const res = await axios.put(`/api/users/${user.userId}`, user);
-      dispatch({
-        type: ADD_USER_TO_GROUP,
-        payload: res.data,
-      });
-    } catch (err) {
-      dispatch({
-        type: USER_ERROR,
-        payload: err.response.data.message,
-      });
-    }
-  };
-
   // Clear Users
   const clearUsers = () => {
     dispatch({ type: CLEAR_USERS });
@@ -131,7 +115,6 @@ const UserState = (props) => {
         deleteUser,
         setCurrent,
         clearCurrent,
-        addUserToGroup,
         filterUsers,
         clearFilter,
         getUsers,
