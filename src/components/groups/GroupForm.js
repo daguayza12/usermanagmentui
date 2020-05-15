@@ -8,17 +8,9 @@ const GroupForm = () => {
   const groupContext = useContext(GroupContext);
   const userContext = useContext(UserContext);
   const alertContext = useContext(AlertContext);
-  const { userss, filtered, getUsers, loading, addUser } = userContext;
+  const { userss, getUsers, addUser } = userContext;
 
-  const {
-    current,
-    clearCurrent,
-    clearGroups,
-    error,
-    addGroup,
-    updateGroup,
-    getGroups,
-  } = groupContext;
+  const { current, clearCurrent, error, addGroup, clearErrors } = groupContext;
   const { setAlert } = alertContext;
   const [userList, setUsers] = useState([
     {
@@ -37,6 +29,7 @@ const GroupForm = () => {
     for (var user of userList) {
       if (user.userId === parseInt(value)) {
         user.groupId = groupId;
+        console.log(user);
         addUser(user);
         window.location.reload(false);
         break;
@@ -67,7 +60,7 @@ const GroupForm = () => {
       userList.unshift({});
     } else if (error === 'Group already exists.') {
       setAlert(error, 'danger');
-      clearGroups();
+      clearErrors();
     } else {
       setGroup({
         groupName: '',
@@ -89,19 +82,25 @@ const GroupForm = () => {
     e.preventDefault();
     const userRole = localStorage.userRole;
     if (userRole !== 'admin') {
-      setAlert('Only admin user can add groups', 'danger');
+      setAlert('Only admin user can make group changes', 'danger');
+      clearErrors();
     } else {
       if (current === null) {
         if (groupName.length === 0) {
           setAlert('Must enter a group name', 'danger');
         } else {
           addGroup(group);
+          if (error) {
+            setAlert(error, 'danger');
+            clearErrors();
+          }
         }
       } else {
         addUserToGroup();
       }
-      clearCurrent();
     }
+    clearCurrent();
+
     setGroup({
       groupName: '',
       users: [],
@@ -142,13 +141,15 @@ const GroupForm = () => {
             value={groupName.charAt(0).toUpperCase() + groupName.slice(1)}
           />
           <div>
+            <label>List of Users</label>
             <select
               value={value}
               onChange={(e) => setValue(e.currentTarget.value)}
             >
+              <option value=''>Select option</option>
               {userList.map(({ userId, firstName, lastName }) => (
                 <option key={userId} value={userId}>
-                  {firstName + lastName}
+                  {firstName + '  ' + lastName}
                 </option>
               ))}
             </select>

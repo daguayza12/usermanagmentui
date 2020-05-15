@@ -13,7 +13,7 @@ import {
   CLEAR_GROUPS,
   CLEAR_FILTER,
   GROUP_ERROR,
-  SET_ALERT,
+  CLEAR_ERRORS,
 } from '../types';
 
 const GroupState = (props) => {
@@ -39,7 +39,7 @@ const GroupState = (props) => {
     } catch (err) {
       dispatch({
         type: GROUP_ERROR,
-        payload: err.message,
+        payload: err.response.data.message,
       });
     }
   };
@@ -56,7 +56,7 @@ const GroupState = (props) => {
     } catch (err) {
       dispatch({
         type: GROUP_ERROR,
-        payload: err.message,
+        payload: err.response.data.message,
       });
     }
   };
@@ -73,7 +73,7 @@ const GroupState = (props) => {
     } catch (err) {
       dispatch({
         type: GROUP_ERROR,
-        payload: err.message,
+        payload: err.response.data.message,
       });
     }
   };
@@ -89,7 +89,7 @@ const GroupState = (props) => {
     } catch (err) {
       dispatch({
         type: GROUP_ERROR,
-        payload: err.message,
+        payload: err.response.data.message,
       });
     }
   };
@@ -118,6 +118,8 @@ const GroupState = (props) => {
   const clearFilter = () => {
     dispatch({ type: CLEAR_FILTER });
   };
+  // Clear Errors
+  const clearErrors = () => dispatch({ type: CLEAR_ERRORS });
 
   return (
     <GroupContext.Provider
@@ -135,6 +137,7 @@ const GroupState = (props) => {
         clearFilter,
         getGroups,
         clearGroups,
+        clearErrors,
       }}
     >
       {props.children}

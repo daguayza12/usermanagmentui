@@ -5,7 +5,14 @@ import AlertContext from '../../context/alert/alertContext';
 const UserForm = () => {
   const userContext = useContext(UserContext);
   const alertContext = useContext(AlertContext);
-  const { addUser, current, clearCurrent, clearUsers, error } = userContext;
+  const {
+    addUser,
+    current,
+    clearCurrent,
+    clearUsers,
+    error,
+    clearErrors,
+  } = userContext;
   const { setAlert } = alertContext;
 
   const clearAll = () => {
@@ -16,7 +23,7 @@ const UserForm = () => {
       setUser(current);
     } else if (error === 'User email already exists.') {
       setAlert(error, 'danger');
-      clearUsers();
+      clearErrors();
     } else {
       setUser({
         firstName: '',
@@ -43,9 +50,8 @@ const UserForm = () => {
     if (current === null) {
       addUser(user);
     }
-    if (error) {
-      setAlert(error, 'danger');
-    }
+    clearAll();
+
     setUser({
       firstName: '',
       lastName: '',

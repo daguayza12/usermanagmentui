@@ -13,7 +13,7 @@ import {
   CLEAR_USERS,
   CLEAR_FILTER,
   USER_ERROR,
-  SET_ALERT,
+  CLEAR_ERRORS,
 } from '../types';
 
 const UserState = (props) => {
@@ -38,7 +38,7 @@ const UserState = (props) => {
     } catch (err) {
       dispatch({
         type: USER_ERROR,
-        payload: err.message,
+        payload: err.response.data.message,
       });
     }
   };
@@ -55,7 +55,7 @@ const UserState = (props) => {
     } catch (err) {
       dispatch({
         type: USER_ERROR,
-        payload: err.message,
+        payload: err.response.data.message,
       });
     }
   };
@@ -72,7 +72,7 @@ const UserState = (props) => {
     } catch (err) {
       dispatch({
         type: USER_ERROR,
-        payload: err.message,
+        payload: err.response.data.message,
       });
     }
   };
@@ -88,7 +88,7 @@ const UserState = (props) => {
     } catch (err) {
       dispatch({
         type: USER_ERROR,
-        payload: err.message,
+        payload: err.response.data.message,
       });
     }
   };
@@ -117,6 +117,8 @@ const UserState = (props) => {
   const clearFilter = () => {
     dispatch({ type: CLEAR_FILTER });
   };
+  // Clear Errors
+  const clearErrors = () => dispatch({ type: CLEAR_ERRORS });
 
   return (
     <UserContext.Provider
@@ -134,6 +136,7 @@ const UserState = (props) => {
         clearFilter,
         getUsers,
         clearUsers,
+        clearErrors,
       }}
     >
       {props.children}

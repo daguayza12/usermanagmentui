@@ -9,6 +9,7 @@ import {
   GET_USER,
   CLEAR_USERS,
   USER_ERROR,
+  CLEAR_ERRORS,
 } from '../types';
 
 export default (state, action) => {
@@ -78,6 +79,11 @@ export default (state, action) => {
       return {
         ...state,
         error: action.payload,
+      };
+    case CLEAR_ERRORS:
+      return {
+        ...state,
+        error: null,
       };
   }
 };

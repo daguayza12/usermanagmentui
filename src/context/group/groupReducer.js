@@ -9,7 +9,7 @@ import {
   CLEAR_GROUPS,
   CLEAR_FILTER,
   GROUP_ERROR,
-  SET_ALERT,
+  CLEAR_ERRORS,
 } from '../types';
 
 export default (state, action) => {
@@ -75,6 +75,11 @@ export default (state, action) => {
       return {
         ...state,
         error: action.payload,
+      };
+    case CLEAR_ERRORS:
+      return {
+        ...state,
+        error: null,
       };
   }
 };
