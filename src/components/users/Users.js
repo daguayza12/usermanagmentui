@@ -9,7 +9,7 @@ const Users = () => {
   const userContext = useContext(UserContext);
   const authContext = useContext(AuthContext);
 
-  const { users, filtered, getUsers, loading } = userContext;
+  const { userss, filtered, getUsers, loading } = userContext;
   const { user } = authContext;
 
   useEffect(() => {
@@ -18,13 +18,13 @@ const Users = () => {
     // eslint-disable-next-line
   }, []);
 
-  if (users !== null && users.length === 0 && !loading) {
-    return <h4>Please add a users</h4>;
+  if (userss !== null && userss.length === 0 && !loading) {
+    return <h4>Please add a user</h4>;
   }
 
   return (
     <Fragment>
-      {users !== null && !loading ? (
+      {userss !== null && !loading ? (
         <TransitionGroup>
           {filtered !== null
             ? filtered.map((user) => (
@@ -36,7 +36,7 @@ const Users = () => {
                   <UserItem user={user} />
                 </CSSTransition>
               ))
-            : users.map((user) => (
+            : userss.map((user) => (
                 <CSSTransition
                   key={user.userId}
                   timeout={500}

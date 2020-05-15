@@ -2,15 +2,13 @@ import React, { useContext } from 'react';
 import PropTypes from 'prop-types';
 import UserContext from '../../context/user/userContext';
 import AlertContext from '../../context/alert/alertContext';
-import AuthContext from '../../context/auth/authContext';
 
 export const UserItems = ({ user }) => {
   const userContext = useContext(UserContext);
   const alertContext = useContext(AlertContext);
-  const authContext = useContext(AuthContext);
-  const { deleteUser, setCurrent, clearCurrent } = userContext;
+  const { deleteUser, clearCurrent } = userContext;
   const { setAlert } = alertContext;
-  const { userId, firstName, email, lastName, userRole } = user;
+  const { userId, firstName, email, lastName, userRole, groupName } = user;
 
   const onDelete = () => {
     const currentUserId = parseInt(localStorage.userId);
@@ -45,17 +43,21 @@ export const UserItems = ({ user }) => {
         {email && (
           <li>
             <i className='fas fa-envelope-open'></i>
+            {'  '}
             {email}
           </li>
         )}
       </ul>
+      <ul className='list'>
+        {groupName && (
+          <li>
+            <i className='fas fa-users'></i>
+            {'  '}
+            {groupName}
+          </li>
+        )}
+      </ul>
       <p>
-        <button
-          className='btn btn-dark btn-sm'
-          onClick={() => setCurrent(user)}
-        >
-          Add User to Group
-        </button>
         <button className='btn btn-danger btn-sm' onClick={onDelete}>
           Delete
         </button>

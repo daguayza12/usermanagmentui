@@ -18,25 +18,25 @@ export default (state, action) => {
     case GET_USER:
       return {
         ...state,
-        users: action.payload,
+        userss: action.payload,
         loading: false,
       };
     case ADD_USER:
       return {
         ...state,
-        users: [...state.users, action.payload],
+        userss: [...state.userss, action.payload],
       };
     case ADD_USER_TO_GROUP:
       return {
         ...state,
-        users: state.users.map((user) =>
+        userss: state.users.map((user) =>
           user.userId === action.payload.userId ? action.payload : user
         ),
       };
     case CLEAR_USERS:
       return {
         ...state,
-        users: null,
+        userss: null,
         filtered: null,
         error: null,
         current: null,
@@ -45,7 +45,7 @@ export default (state, action) => {
     case DELETE_USER:
       return {
         ...state,
-        users: state.users.filter((user) => user.userId != action.payload),
+        userss: state.userss.filter((user) => user.userId != action.payload),
       };
     case SET_CURRENT:
       return {
@@ -60,7 +60,7 @@ export default (state, action) => {
     case FILTER_USER:
       return {
         ...state,
-        filtered: state.users.filter((user) => {
+        filtered: state.userss.filter((user) => {
           const regex = new RegExp(`${action.payload}`, 'gi');
           return (
             user.firstName.match(regex) ||

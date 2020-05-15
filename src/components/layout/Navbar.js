@@ -29,10 +29,10 @@ const Navbar = ({ title, icon }) => {
         <Link to='/'>Home</Link>
       </li>
       <li>
-        <Link to='/groups'>User Groups</Link>
+        <Link to='/groups'>Groups</Link>
       </li>
       <li>
-        <a onClick={onLogout} href='#!'>
+        <a onClick={onLogout} href='/'>
           <i className='fas fa-sign-out-alt'>Logout</i>
           <span className='hide-sm' />
         </a>

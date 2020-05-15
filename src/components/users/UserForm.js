@@ -5,14 +5,7 @@ import AlertContext from '../../context/alert/alertContext';
 const UserForm = () => {
   const userContext = useContext(UserContext);
   const alertContext = useContext(AlertContext);
-  const {
-    addUser,
-    current,
-    clearCurrent,
-    addUserToGroup,
-    clearUsers,
-    error,
-  } = userContext;
+  const { addUser, current, clearCurrent, clearUsers, error } = userContext;
   const { setAlert } = alertContext;
 
   const clearAll = () => {
@@ -49,8 +42,9 @@ const UserForm = () => {
     e.preventDefault();
     if (current === null) {
       addUser(user);
-    } else {
-      addUserToGroup(user);
+    }
+    if (error) {
+      setAlert(error, 'danger');
     }
     setUser({
       firstName: '',
@@ -64,9 +58,7 @@ const UserForm = () => {
 
   return (
     <form onSubmit={onSubmit}>
-      <h2 className='text-primary'>
-        {current ? 'Add User to Group' : 'Add User'}
-      </h2>
+      <h2 className='text-primary'>Add User</h2>
       <input
         type='text'
         placeholder='FirstName'
@@ -91,17 +83,10 @@ const UserForm = () => {
       <div>
         <input
           type='submit'
-          value={current ? 'Add User to Group' : 'Add User'}
+          value='Add User'
           className='btn btn-primary btn-block'
         />
       </div>
-      {current && (
-        <div>
-          <button className='btn btn-light btn-block' onClick={clearAll}>
-            Clear
-          </button>
-        </div>
-      )}
     </form>
   );
 };

@@ -18,7 +18,7 @@ import {
 
 const UserState = (props) => {
   const initialState = {
-    users: null,
+    userss: null,
     current: null,
     filtered: null,
     error: null,
@@ -38,7 +38,7 @@ const UserState = (props) => {
     } catch (err) {
       dispatch({
         type: USER_ERROR,
-        payload: err.response.message,
+        payload: err.message,
       });
     }
   };
@@ -55,7 +55,7 @@ const UserState = (props) => {
     } catch (err) {
       dispatch({
         type: USER_ERROR,
-        payload: err.response.message,
+        payload: err.message,
       });
     }
   };
@@ -72,7 +72,7 @@ const UserState = (props) => {
     } catch (err) {
       dispatch({
         type: USER_ERROR,
-        payload: err.response.message,
+        payload: err.message,
       });
     }
   };
@@ -88,7 +88,7 @@ const UserState = (props) => {
     } catch (err) {
       dispatch({
         type: USER_ERROR,
-        payload: err.response.message,
+        payload: err.message,
       });
     }
   };
@@ -121,7 +121,7 @@ const UserState = (props) => {
   return (
     <UserContext.Provider
       value={{
-        users: state.users,
+        userss: state.userss,
         current: state.current,
         filtered: state.filtered,
         error: state.error,

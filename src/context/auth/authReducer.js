@@ -14,6 +14,7 @@ export default (state, action) => {
       return state;
     case LOGIN_SUCCESS:
       localStorage.setItem('token', action.payload.token);
+
       return {
         ...state,
         ...action.payload,
@@ -25,7 +26,7 @@ export default (state, action) => {
       localStorage.setItem('firstName', action.payload.firstName);
       localStorage.setItem('lastName', action.payload.lastName);
       localStorage.setItem('userId', action.payload.userId);
-
+      localStorage.setItem('userRole', action.payload.userRole);
       return {
         ...state,
         isAuthenticated: true,
@@ -40,6 +41,8 @@ export default (state, action) => {
       localStorage.removeItem('firstName');
       localStorage.removeItem('lastName');
       localStorage.removeItem('userId');
+      localStorage.removeItem('userRole');
+
       return {
         ...state,
         token: false,
