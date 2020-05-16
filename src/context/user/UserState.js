@@ -8,7 +8,6 @@ import {
   DELETE_USER,
   SET_CURRENT,
   CLEAR_CURRENT,
-  ADD_USER_TO_GROUP,
   FILTER_USER,
   CLEAR_USERS,
   CLEAR_FILTER,
@@ -47,7 +46,6 @@ const UserState = (props) => {
   const addUser = async (user) => {
     try {
       const res = await axios.post('/api/users', user);
-
       dispatch({
         type: ADD_USER,
         payload: res.data,
@@ -55,11 +53,21 @@ const UserState = (props) => {
     } catch (err) {
       dispatch({
         type: USER_ERROR,
-        payload: err.response.data.message,
+        payload: err.message,
       });
     }
   };
-
+  // updateUser
+  const updateUser = async (user) => {
+    try {
+      await axios.post('/api/users', user);
+    } catch (err) {
+      dispatch({
+        type: USER_ERROR,
+        payload: err.message,
+      });
+    }
+  };
   // Delete User
   const deleteUser = async (userId) => {
     try {
@@ -112,6 +120,7 @@ const UserState = (props) => {
         filtered: state.filtered,
         error: state.error,
         addUser,
+        updateUser,
         deleteUser,
         setCurrent,
         clearCurrent,

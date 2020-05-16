@@ -3,17 +3,13 @@ import { CSSTransition, TransitionGroup } from 'react-transition-group';
 import UserItem from './UserItems';
 import Spinner from '../layout/Spinner';
 import UserContext from '../../context/user/userContext';
-import AuthContext from '../../context/auth/authContext';
 
 const Users = () => {
   const userContext = useContext(UserContext);
-  const authContext = useContext(AuthContext);
 
   const { userss, filtered, getUsers, loading } = userContext;
-  const { user } = authContext;
 
   useEffect(() => {
-    console.log(user);
     getUsers();
     // eslint-disable-next-line
   }, []);

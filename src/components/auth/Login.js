@@ -11,7 +11,7 @@ const Login = (props) => {
 
   useEffect(() => {
     if (isAuthenticated) {
-      console.log('authenticated');
+      console.log(user);
       props.history.push({
         pathname: '/',
         user: user,

@@ -1,4 +1,4 @@
-import React, { useContext, useEffect, useState } from 'react';
+import React, { useEffect } from 'react';
 import Users from '../users/Users';
 import UserForm from '../users/UserForm';
 import UserFilter from '../users/UserFilter';

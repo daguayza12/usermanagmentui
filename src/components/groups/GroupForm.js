@@ -2,15 +2,20 @@ import React, { useState, useContext, useEffect } from 'react';
 import GroupContext from '../../context/group/groupContext';
 import AlertContext from '../../context/alert/alertContext';
 import UserContext from '../../context/user/userContext';
-import { GET_GROUPS } from '../../context/types';
 
 const GroupForm = () => {
   const groupContext = useContext(GroupContext);
   const userContext = useContext(UserContext);
   const alertContext = useContext(AlertContext);
-  const { userss, getUsers, addUser } = userContext;
-
-  const { current, clearCurrent, error, addGroup, clearErrors } = groupContext;
+  const { userss, getUsers, updateUser, clearUsers } = userContext;
+  const {
+    current,
+    clearCurrent,
+    error,
+    addGroup,
+    clearErrors,
+    updateGroup,
+  } = groupContext;
   const { setAlert } = alertContext;
   const [userList, setUsers] = useState([
     {
@@ -30,14 +35,13 @@ const GroupForm = () => {
       if (user.userId === parseInt(value)) {
         user.groupId = groupId;
         console.log(user);
-        addUser(user);
-        window.location.reload(false);
+        updateUser(user);
         break;
       }
     }
   };
   useEffect(() => {
-    if (userss !== null && userss.length) {
+    if (userss !== null && userss.length > 0) {
       setUsers(
         userss.map(
           ({ firstName, lastName, email, userId, groupName, userRole }) => ({
@@ -97,10 +101,14 @@ const GroupForm = () => {
         }
       } else {
         addUserToGroup();
+        updateGroup();
       }
     }
+    clearUsers();
+    //  clearGroups();
     clearCurrent();
-
+    setUsers([]);
+    setValue({ value: '' });
     setGroup({
       groupName: '',
       users: [],
@@ -135,7 +143,6 @@ const GroupForm = () => {
           <input
             type='text'
             disabled={true}
-            type='text'
             placeholder='GroupName'
             name='groupName'
             value={groupName.charAt(0).toUpperCase() + groupName.slice(1)}
@@ -149,7 +156,11 @@ const GroupForm = () => {
               <option value=''>Select option</option>
               {userList.map(({ userId, firstName, lastName }) => (
                 <option key={userId} value={userId}>
-                  {firstName + '  ' + lastName}
+                  {firstName.charAt(0).toUpperCase() +
+                    firstName.slice(1) +
+                    '  ' +
+                    lastName.charAt(0).toUpperCase() +
+                    lastName.slice(1)}
                 </option>
               ))}
             </select>

@@ -3,20 +3,20 @@ import { CSSTransition, TransitionGroup } from 'react-transition-group';
 import GroupItems from './GroupItems';
 import Spinner from '../layout/Spinner';
 import GroupContext from '../../context/group/groupContext';
-import AuthContext from '../../context/auth/authContext';
 
 const Groups = () => {
   const groupContext = useContext(GroupContext);
-  const authContext = useContext(AuthContext);
 
-  const { groups, filtered, getGroups, loading } = groupContext;
-  const { group } = authContext;
+  const { groups, filtered, getGroups, loading, updated } = groupContext;
 
   useEffect(() => {
-    console.log(group);
-    getGroups();
+    console.log('updated?');
+    console.log(updated);
+    if (updated !== null) {
+      getGroups();
+    }
     // eslint-disable-next-line
-  }, []);
+  }, [updated]);
 
   if (groups !== null && groups.length === 0 && !loading) {
     return <h4>Please add a group</h4>;

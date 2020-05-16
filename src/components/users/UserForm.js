@@ -5,14 +5,7 @@ import AlertContext from '../../context/alert/alertContext';
 const UserForm = () => {
   const userContext = useContext(UserContext);
   const alertContext = useContext(AlertContext);
-  const {
-    addUser,
-    current,
-    clearCurrent,
-    clearUsers,
-    error,
-    clearErrors,
-  } = userContext;
+  const { addUser, current, clearCurrent, error, clearErrors } = userContext;
   const { setAlert } = alertContext;
 
   const clearAll = () => {
@@ -43,7 +36,7 @@ const UserForm = () => {
     groupName: '',
     groupId: 0,
   });
-  const { firstName, lastName, email, userRole, groupId, groupName } = user;
+  const { firstName, lastName, email } = user;
   const onChange = (e) => setUser({ ...user, [e.target.name]: e.target.value });
   const onSubmit = (e) => {
     e.preventDefault();

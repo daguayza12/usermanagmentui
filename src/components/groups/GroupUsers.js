@@ -2,7 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 
 const GroupUsers = ({ user }) => {
-  const { firstName, lastName, email } = user;
+  const { firstName, lastName } = user;
   return (
     <div className='card text-center'>
       <h3>

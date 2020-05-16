@@ -22,6 +22,7 @@ const GroupState = (props) => {
     current: null,
     filtered: null,
     error: null,
+    updated: false,
   };
 
   const [state, dispatch] = useReducer(GroupReducer, initialState);
@@ -29,9 +30,7 @@ const GroupState = (props) => {
   // Getgroups
   const getGroups = async () => {
     try {
-      console.log('hereee');
       const res = await axios.get('/api/groups');
-
       dispatch({
         type: GET_GROUPS,
         payload: res.data,
@@ -79,19 +78,11 @@ const GroupState = (props) => {
   };
 
   // Update group
-  const updateGroup = async (groupId) => {
-    try {
-      const res = await axios.get(`/api/groups/${groupId}`);
-      dispatch({
-        type: UPDATE_STATE,
-        payload: res.data,
-      });
-    } catch (err) {
-      dispatch({
-        type: GROUP_ERROR,
-        payload: err.response.data.message,
-      });
-    }
+  const updateGroup = () => {
+    getGroups();
+    dispatch({
+      type: UPDATE_STATE,
+    });
   };
 
   // Clear groups
@@ -128,6 +119,7 @@ const GroupState = (props) => {
         current: state.current,
         filtered: state.filtered,
         error: state.error,
+        updated: state.updated,
         addGroup,
         deleteGroup,
         setCurrent,

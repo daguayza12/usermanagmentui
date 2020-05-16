@@ -46,7 +46,7 @@ export default (state, action) => {
     case DELETE_USER:
       return {
         ...state,
-        userss: state.userss.filter((user) => user.userId != action.payload),
+        userss: state.userss.filter((user) => user.userId !== action.payload),
       };
     case SET_CURRENT:
       return {

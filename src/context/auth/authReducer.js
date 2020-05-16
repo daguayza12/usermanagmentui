@@ -5,7 +5,6 @@ import {
   LOGIN_SUCCESS,
   LOGOUT,
   CLEAR_ERRORS,
-  LOGIN_ERROR,
 } from '../types';
 
 export default (state, action) => {

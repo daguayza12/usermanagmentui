@@ -20,6 +20,7 @@ export default (state, action) => {
       return {
         ...state,
         groups: action.payload,
+        updated: true,
         loading: false,
       };
     case ADD_GROUP:
@@ -28,25 +29,32 @@ export default (state, action) => {
         groups: [...state.groups, action.payload],
       };
     case UPDATE_STATE:
+      console.log('Update state');
+
       return {
         ...state,
-        groups: state.groups.map((group) =>
-          group.groupId === action.payload.groupId ? action.payload : group
-        ),
+        updated: true,
+        //groups: state.groups.map((group) =>
+        // group.groupId === action.payload.groupId ? action.payload : group
+        //),
       };
     case CLEAR_GROUPS:
+      console.log('Update state');
       return {
         ...state,
         groups: null,
         filtered: null,
         error: null,
         current: null,
+        updated: null,
       };
 
     case DELETE_GROUP:
       return {
         ...state,
-        groups: state.groups.filter((group) => group.groupId != action.payload),
+        groups: state.groups.filter(
+          (group) => group.groupId !== action.payload
+        ),
       };
     case SET_CURRENT:
       return {
@@ -54,9 +62,11 @@ export default (state, action) => {
         current: action.payload,
       };
     case CLEAR_CURRENT:
+      console.log('clear current');
       return {
         ...state,
         current: null,
+        updated: null,
       };
     case FILTER_GROUPS:
       return {
