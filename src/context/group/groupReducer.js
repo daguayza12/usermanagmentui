@@ -29,14 +29,9 @@ export default (state, action) => {
         groups: [...state.groups, action.payload],
       };
     case UPDATE_STATE:
-      console.log('Update state');
-
       return {
         ...state,
         updated: true,
-        //groups: state.groups.map((group) =>
-        // group.groupId === action.payload.groupId ? action.payload : group
-        //),
       };
     case CLEAR_GROUPS:
       console.log('Update state');
