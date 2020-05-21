@@ -18,9 +18,10 @@
     "uuid": "^7.0.3"
   },
   "scripts": {
-    "start": "npm start",
-    "build": "npm build",
-    "heroku-postbuild": "NPM_CONFIG_PRODUCTION=false npm install && npm run build"
+    "start": "react-scripts start",
+    "build": "react-scripts build",
+    "test": "react-scripts test",
+    "eject": "react-scripts eject"
   },
   "eslintConfig": {
     "extends": "react-app"
